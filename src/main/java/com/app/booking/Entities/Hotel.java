@@ -23,7 +23,7 @@ public class Hotel {
     @JoinColumn(name = "AppUser_id")
     private AppUser manager;
 
-    private boolean isApproved;
-
+    // default value to 0 for isApproved
+    private boolean isApproved = false;
 
 }
