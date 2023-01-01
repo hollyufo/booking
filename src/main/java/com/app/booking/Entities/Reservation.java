@@ -31,4 +31,8 @@ public class Reservation {
         @ManyToOne
         @JoinColumn(name = "room_id")
         private Room room;
+
+        // Status
+        @Enumerated(EnumType.STRING)
+        private ReservationStatus reservationStatus;
 }
