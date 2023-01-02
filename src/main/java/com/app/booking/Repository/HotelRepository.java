@@ -13,7 +13,6 @@ public interface HotelRepository extends JpaRepository<Hotel, Long> {
     List<Hotel> findAllByIsApprovedFalse();
 
     // getting all the hotels that are approved
-
     List<Hotel> findAllByIsApprovedTrue();
 
     // getting all the hotels that are approved and in a specific city

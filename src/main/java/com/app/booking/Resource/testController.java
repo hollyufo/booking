@@ -1,4 +1,4 @@
-package com.app.booking.Controllers;
+package com.app.booking.Resource;
 
 
 import org.springframework.http.ResponseEntity;

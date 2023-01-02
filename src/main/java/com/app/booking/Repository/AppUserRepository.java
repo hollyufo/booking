@@ -16,4 +16,5 @@ public interface AppUserRepository extends JpaRepository<AppUser, Long> {
     // update the role of a user
     AppUser findByRole(String role);
 
+    List<AppUser> findAllByisBanned(boolean b);
 }
