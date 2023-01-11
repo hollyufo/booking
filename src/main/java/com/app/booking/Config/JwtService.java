@@ -39,6 +39,7 @@ public class JwtService {
             .setSubject(userDetails.getUsername())
                 // adding authority to the token
             .claim("authorities", userDetails.getAuthorities())
+            .claim("username", userDetails.getUsername())
             .setIssuedAt(new Date(System.currentTimeMillis()))
             .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 24))
             .signWith(getSigningKey(), SignatureAlgorithm.HS256)
