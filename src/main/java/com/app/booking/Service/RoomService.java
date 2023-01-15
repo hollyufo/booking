@@ -30,4 +30,7 @@ public class RoomService {
     public List<Room> getAllByHotel(Hotel hotel){
         return roomRepository.findAllByHotel(hotel);
     }
+    public List<Room> getAllRooms(){
+        return roomRepository.findAll();
+    }
 }

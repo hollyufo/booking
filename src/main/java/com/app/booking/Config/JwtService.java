@@ -1,5 +1,6 @@
 package com.app.booking.Config;
 
+import com.app.booking.Entities.AppUser;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -27,19 +28,20 @@ public class JwtService {
         return claimsResolver.apply(claims);
     }
 
-    public String generateToken(UserDetails userDetails) {
-        return generateToken(new HashMap<>(), userDetails);
+    public String generateToken(AppUser user) {
+        return generateToken(new HashMap<>(), user);
     }
 
     public String generateToken(
         Map<String, Object> extraClaims,
-        UserDetails userDetails) {
+        AppUser userDetails) {
         return Jwts.builder()
             .setClaims(extraClaims)
             .setSubject(userDetails.getUsername())
-                // adding authority to the token
+            // adding authority to the token
             .claim("authorities", userDetails.getAuthorities())
-            .claim("username", userDetails.getUsername())
+            .claim("lastname", userDetails.getLastName())
+            .claim("firstname", userDetails.getFirstName())
             .setIssuedAt(new Date(System.currentTimeMillis()))
             .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 24))
             .signWith(getSigningKey(), SignatureAlgorithm.HS256)

@@ -15,5 +15,6 @@ public interface RoomRepository extends JpaRepository<Room, Long> {
 
     // getting all the rooms that hotel is approved
     List<Room> findAllByHotelIsApprovedTrue();
+
 }
 

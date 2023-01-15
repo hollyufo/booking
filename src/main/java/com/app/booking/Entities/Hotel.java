@@ -26,4 +26,6 @@ public class Hotel {
     // default value to 0 for isApproved
     private boolean isApproved = false;
 
+    public String image;
+
 }

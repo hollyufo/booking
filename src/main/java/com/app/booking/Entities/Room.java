@@ -29,5 +29,6 @@ public class Room {
     @Enumerated(EnumType.STRING)
     private RoomStatus roomStatus;
 
+    private String image;
 
 }
