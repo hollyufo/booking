@@ -1,16 +1,16 @@
 package com.app.booking.Resource;
 
 
+import com.app.booking.Dto.ReservationDto;
 import com.app.booking.Entities.Hotel;
+import com.app.booking.Entities.Reservation;
 import com.app.booking.Entities.Room;
 import com.app.booking.Service.HotelService;
 import com.app.booking.Service.ResevationService;
 import com.app.booking.Service.RoomService;
 import com.app.booking.Service.UserService;
 import lombok.AllArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -33,5 +33,10 @@ public class UserController {
     @GetMapping("/rooms")
     public List<Room> getAllRooms() {
         return roomService.getAllRooms();
+    }
+
+    @GetMapping("/availableRooms")
+    public List<Room> getAvailableRooms(@RequestBody ReservationDto reservationDto) {
+        return reservationService.getAvailableRooms(reservationDto);
     }
 }

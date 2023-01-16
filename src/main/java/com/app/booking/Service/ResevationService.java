@@ -1,20 +1,25 @@
 package com.app.booking.Service;
 
 
+import com.app.booking.Dto.ReservationDto;
 import com.app.booking.Entities.Hotel;
 import com.app.booking.Entities.Reservation;
 import com.app.booking.Entities.ReservationStatus;
+import com.app.booking.Entities.Room;
 import com.app.booking.Repository.ReservationRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
 public class ResevationService {
 
     private final ReservationRepository reservationRepository;
+    private final RoomService roomService;
 
     // save reservation
     public Reservation saveReservation(Reservation reservation) {
@@ -50,5 +55,9 @@ public class ResevationService {
     public Reservation getReservationById(Long id) {
         return reservationRepository.findById(id).orElseThrow(() -> new RuntimeException("Reservation not found"));
     }
-    // find reservation by user
+    public List<Room> getAvailableRooms(ReservationDto reservationDto) {
+        List<Reservation> reservations = reservationRepository.findByStartDateAndEndDate(reservationDto.getStartDate(), reservationDto.getEndDate());
+        List<Room> reservedRooms = reservations.stream().map(Reservation::getRoom).collect(Collectors.toList());
+        return roomService.findAll().stream().filter(room -> !reservedRooms.contains(room)).collect(Collectors.toList());
+    }
 }
