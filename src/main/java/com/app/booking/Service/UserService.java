@@ -45,10 +45,20 @@ public class UserService {
         appUserRepository.save(appUser);
         return appUser;
     }
+    public AppUser getUserByEmail(String email) {
+        return appUserRepository.findByEmail(email);
+    }
     // ban a user
     public void banUser(Long id) {
         AppUser appUser = appUserRepository.findById(id).orElseThrow(() -> new RuntimeException("User not found"));
-        appUser.setBanned(true);
+        if (appUser.isBanned()) {
+            appUser.setBanned(false);
+        } else {
+            appUser.setBanned(true);
+        }
         appUserRepository.save(appUser);
+    }
+    public List<AppUser> getAllUsers() {
+        return appUserRepository.findAll();
     }
 }

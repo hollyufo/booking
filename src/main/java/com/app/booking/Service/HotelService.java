@@ -44,4 +44,25 @@ public class HotelService {
         hotel.setApproved(true);
         hotelRepository.save(hotel);
     }
+    // get all hotels
+    public List<Hotel> getAllHotels() {
+        return hotelRepository.findAll();
+    }
+    public Hotel setapproved(Long id) {
+        Hotel hotel = hotelRepository.findById(id).orElseThrow(() -> new RuntimeException("Hotel not found"));
+        if (hotel.isApproved()) {
+            hotel.setApproved(false);
+        } else {
+            hotel.setApproved(true);
+        }
+        return hotelRepository.save(hotel);
+    }
+    //get hotels by manager id
+    public List<Hotel> getHotelsByManagerId(Long id) {
+        return hotelRepository.findAllByManagerId(id);
+    }
+    //get hotels by manager
+    public List<Hotel> getHotelsByManager(Long id) {
+        return hotelRepository.findAllByManagerId(id);
+    }
 }

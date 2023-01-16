@@ -3,6 +3,7 @@ package com.app.booking.Resource;
 
 import com.app.booking.Entities.AppUser;
 import com.app.booking.Entities.Hotel;
+import com.app.booking.Entities.Role;
 import com.app.booking.Service.HotelService;
 import com.app.booking.Service.UserService;
 import lombok.AllArgsConstructor;
@@ -24,15 +25,27 @@ public class AdminController {
     public List<Hotel> getAllNotApproved() {
         return hotelService.getAllNotApproved();
     }
-    @PostMapping("/hotels/approve")
-    public void approveHotel(@RequestBody Hotel hotel) {
-        hotelService.approveHotel(hotel.getId());
+    @GetMapping("/hotels/{id}")
+    public Hotel getHotelById(@PathVariable Long id) {
+       return hotelService.setapproved(id);
+    }
+    @GetMapping("/hotels")
+    public List<Hotel> getAllHotels() {
+        return hotelService.getAllHotels();
     }
 
     // update A user Role
-    @PostMapping("/users/update")
-    public void updateUserRole(@RequestBody AppUser user) {
-        userService.updateUserRole(user);
+    @GetMapping("/users/update/{id}/{role}")
+    public void updateUserRole(@PathVariable Long id, @PathVariable String role) {
+        AppUser user =userService.getUserById(id);
+        if(role.equals("USER")){
+            user.setRole(Role.USER);
+        }else if(role.equals("MANAGER")){
+            user.setRole(Role.MANAGER);
+        }else if(role.equals("ADMIN")){
+            user.setRole(Role.ADMIN);
+        }
+        userService.saveUser(user);
     }
 
     // get all users that are managers
@@ -51,8 +64,17 @@ public class AdminController {
         return userService.getAllBanned();
     }
     // ban a user
-    @PostMapping("/users/ban")
-    public void banUser(@RequestBody AppUser user) {
-        userService.banUser(user.getId());
+    @GetMapping("/users/ban/{id}")
+    public void banUser(@PathVariable Long id) {
+        userService.banUser(id);
+    }
+    @GetMapping("/users")
+    public List<AppUser> getAllUsers() {
+        return userService.getAllUsers();
+    }
+    // getting a single user with id
+    @GetMapping("/users/view/{id}")
+    public AppUser getUserById(@PathVariable Long id) {
+        return userService.getUserById(id);
     }
 }

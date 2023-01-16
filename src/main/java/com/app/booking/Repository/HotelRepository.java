@@ -17,5 +17,6 @@ public interface HotelRepository extends JpaRepository<Hotel, Long> {
 
     // getting all the hotels that are approved and in a specific city
     List<Hotel> findAllByIsApprovedTrueAndCity(City city);
-
+    // getting the hotels by manager id
+    List<Hotel> findAllByManagerId(Long id);
 }
