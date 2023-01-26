@@ -1,6 +1,4 @@
 FROM openjdk:19
-WORKDIR /app
-COPY ./target/booking-0.0.1-SNAPSHOT.jar /app
-CMD ["java","-jar","/app/booking-0.0.1-SNAPSHOT.jar"]
-# port
-EXPOSE 8083
+ARG WAR_FILE=target/*.war
+COPY target/booking-0.0.1-SNAPSHOT.war app.war
+ENTRYPOINT ["java", "-jar","app.war"]
